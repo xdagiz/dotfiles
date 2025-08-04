@@ -1,0 +1,22 @@
+[user]
+	name = Dagmawi Ali
+	email = xdagizjr2112@gmail.com
+[core]
+	editor = nvim
+	autocrlf = input
+[init]
+	defaultBranch = main
+
+[push]
+  autoSetupRemote = true
+  defaut = current
+[color]
+	ui = auto
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	cm = commit -m
+	lg = log --oneline --graph --all --decorate
+[credential]
+	username = xdagiz
