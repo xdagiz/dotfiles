@@ -3,3 +3,5 @@
 .config/go
 .config/btop
 .config/tmux/plugins
+.config/nvim-nvchad
+.config/exercism

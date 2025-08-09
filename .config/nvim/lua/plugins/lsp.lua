@@ -158,7 +158,9 @@ return {
 				--    https://github.com/pmizio/typescript-tools.nvim
 				--
 				-- But for many setups, the LSP (`ts_ls`) will work just fine
-				ts_ls = {},
+				ts_ls = {
+					cmd = { "typescript-language-server", "--stdio", "--tsserver-max-memory", "512" },
+				},
 				--
 
 				lua_ls = {
@@ -175,6 +177,7 @@ return {
 						},
 					},
 				},
+				zls = {},
 			}
 
 			-- Ensure the servers and tools above are installed
@@ -219,7 +222,7 @@ return {
 		cmd = { "ConformInfo" },
 		keys = {
 			{
-				"<leader>f",
+				"<leader>cf",
 				function()
 					require("conform").format({ async = true, lsp_format = "fallback" })
 				end,
@@ -243,7 +246,9 @@ return {
 			formatters_by_ft = {
 				lua = { "stylua" },
 				-- python = { "isort", "black" },
-				javascript = { "prettierd", "prettier", stop_after_first = true },
+				javascript = { "prettier", "prettierd", stop_after_first = true },
+				typescript = { "prettier", "prettierd", stop_after_first = true },
+				tsx = { "prettier" },
 			},
 		},
 	},

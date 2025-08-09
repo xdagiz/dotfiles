@@ -108,14 +108,15 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
+alias srczsh="source ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export PATH="$PATH:$HOME/.zig:$HOME/cbin/nvim/bin:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.go/bin:$HOME/cbin/nvim/bin:$HOME/.local/bin"
 
-alias nvim-lazyvim='NVIM_APPNAME=nvim-lazyvim nvim'
+alias nvlz='NVIM_APPNAME=nvim-lazyvim nvim'
 alias nvim-astronvim='NVIM_APPNAME=nvim-astronvim nvim'
-alias nvim-kickstart='NVIM_APPNAME=nvim-kickstart nvim'
+alias nvki='NVIM_APPNAME=nvim-kickstart nvim'
+alias nvch='NVIM_APPNAME=nvim-nvchad nvim'
 
 nvv() {
   # Assumes all configs exist in directories named ~/.config/nvim-*
@@ -141,3 +142,5 @@ export PATH="$HOME/zig-linux-x86_64-0.13.0:$PATH"
 bindkey "^ " autosuggest-accept
 bindkey '^[[1;5D' backward-word  # Ctrl + Left
 bindkey '^[[1;5C' forward-word   # Ctrl + Right
+alias bat="batcat"
+export PATH=$PATH:$HOME/go/bin

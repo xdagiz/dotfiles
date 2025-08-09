@@ -12,7 +12,11 @@ return {
 			"luadoc",
 			"markdown",
 			"markdown_inline",
+			"typescript",
+			"javascript",
+			"tsx",
 			"query",
+			"zig",
 		},
 		auto_install = false,
 		highlight = {

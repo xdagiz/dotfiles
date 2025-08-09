@@ -42,5 +42,8 @@ return {
 		{ "<leader>so", "<cmd>Telescope vim_options<cr>", desc = "Options" },
 		{ "<leader>sR", "<cmd>Telescope resume<cr>", desc = "Resume" },
 		{ "<leader>sq", "<cmd>Telescope quickfix<cr>", desc = "Quickfix List" },
+		vim.keymap.set("n", "<leader>fc", function()
+			require("telescope.builtin").find_files({ cwd = vim.fn.stdpath("config") })
+		end, { desc = "[S]earch [N]eovim files" }),
 	},
 }
