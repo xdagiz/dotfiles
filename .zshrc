@@ -108,7 +108,7 @@ source $ZSH/oh-my-zsh.sh
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-alias srczsh="source ~/.zshrc"
+alias zshsrc="source ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 export PATH="$PATH:$HOME/.go/bin:$HOME/cbin/nvim/bin:$HOME/.local/bin"
@@ -144,3 +144,13 @@ bindkey '^[[1;5D' backward-word  # Ctrl + Left
 bindkey '^[[1;5C' forward-word   # Ctrl + Right
 alias bat="batcat"
 export PATH=$PATH:$HOME/go/bin
+
+# pnpm
+export PNPM_HOME="/home/xdagiz/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
+
+bindkey -v
