@@ -1,5 +1,8 @@
 local map = vim.keymap.set
 
+map("n", "<C-c>", "<Esc>")
+map("n", "<Esc>", "<cmd>nohlsearch<CR>")
+
 -- better up/down
 map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })

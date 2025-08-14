@@ -1,6 +1,47 @@
 return {
 	"nvim-telescope/telescope.nvim",
+	event = "VeryLazy",
 	cmd = "Telescope",
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		{ -- If encountering errors, see telescope-fzf-native README for installation instructions
+			"nvim-telescope/telescope-fzf-native.nvim",
+
+			-- `build` is used to run some command when the plugin is installed/updated.
+			-- This is only run then, not every time Neovim starts up.
+			build = "make",
+
+			-- `cond` is a condition used to determine whether this plugin should be
+			-- installed and loaded.
+			cond = function()
+				return vim.fn.executable("make") == 1
+			end,
+		},
+		{ "nvim-telescope/telescope-ui-select.nvim" },
+		{ "nvim-tree/nvim-web-devicons" },
+	},
+	opts = {
+		defaults = {
+			prompt_prefix = "   ",
+			selection_caret = " ",
+			entry_prefix = " ",
+			sorting_strategy = "ascending",
+			layout_config = {
+				horizontal = {
+					prompt_position = "top",
+					preview_width = 0.55,
+				},
+				width = 0.87,
+				height = 0.80,
+			},
+			mappings = {
+				n = { ["q"] = require("telescope.actions").close },
+			},
+		},
+
+		extensions_list = { "themes", "terms" },
+		extensions = {},
+	},
 	keys = {
 		{ "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File" },
 		{ "<leader>/", "<cmd>Telescope live_grep<cr>", desc = "Live Grep" },

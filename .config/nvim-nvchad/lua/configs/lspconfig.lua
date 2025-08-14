@@ -16,10 +16,13 @@ local servers = {
   --   },
   -- },
   cssls = {},
-  ts_ls = { cmd = { "tsserver", "--stdio", "--tsserver-max-memory", "512" } },
-  -- tsgo = {
-  --   cmd = { "tsgo", "--lsp", "--stdio", "--tsgo-max-memory", "512" },
-  -- },
+  -- ts_ls = { cmd = { "tsserver", "--stdio", "--tsserver-max-memory", "512" } },
+  -- ts_ls = {},
+
+  -- tsgo = {},
+  tsgo = {
+    cmd = { "tsgo", "--lsp", "--stdio", "--tsgo-max-memory", "512" },
+  },
 }
 
 for name, opts in pairs(servers) do

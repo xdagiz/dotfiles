@@ -2,10 +2,13 @@ return {
   {
     "echasnovski/mini.ai",
     event = "VeryLazy",
-    lazy = true,
-    opts = function()
+    version = "*",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
+    opts = function(_, opts)
       local ai = require "mini.ai"
-      return {
+      opts = {
         n_lines = 500,
         custom_textobjects = {
           o = ai.gen_spec.treesitter { -- code block
@@ -29,11 +32,13 @@ return {
           U = ai.gen_spec.function_call { name_pattern = "[%w_]" }, -- without dot in function name
         },
       }
+      return opts
     end,
   },
-  { "echasnovski/mini.pairs", lazy = true, opts = { modes = { insert = true, command = true, terminal = false } } },
-  { "echasnovski/mini.move", lazy = true, opts = {} },
-  { "echasnovski/mini.surround", lazy = true, opts = {} },
-  { "echasnovski/mini.icons", lazy = true, opts = {} },
+  { "echasnovski/mini.surround", event = "VeryLazy", version = "*", opts = {} },
+  { "echasnovski/mini.notify", event = "VeryLazy" },
+  -- { "echasnovski/mini.pairs", lazy = true, opts = { modes = { insert = true, command = true, terminal = false } } },
+  -- { "echasnovski/mini.move", lazy = true, opts = {} },
+  -- { "echasnovski/mini.icons", lazy = true, opts = {} },
   -- { "echasnovski/mini.files", opts = {} },
 }

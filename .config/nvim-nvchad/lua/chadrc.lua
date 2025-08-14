@@ -30,6 +30,14 @@ M.nvdash = {
     "╚═╝  ╚═╝╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝╚══════╝",
     "                                            ",
   },
+  buttons = {
+    { txt = "  Find File", keys = "ff", cmd = "Telescope find_files" },
+    { txt = "  Recent Files", keys = "fo", cmd = "Telescope oldfiles" },
+    { txt = "󰒲  Lazy", icon = "󰒲", keys = "l", cmd = "Lazy" },
+    { txt = "󰒳  Mason", icon = "󰒳", keys = "m", cmd = "Mason" },
+    { txt = "󰒵  NvCheatsheet", icon = "󰒵", keys = "c", cmd = "NvCheatsheet" },
+    { txt = "󰒱  Quit", icon = "󰒱", keys = "q", cmd = "qa" },
+  },
 }
 
 M.ui = {
