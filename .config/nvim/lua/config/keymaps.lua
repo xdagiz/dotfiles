@@ -116,7 +116,8 @@ map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
 
 -- quit
-map("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
+map("n", "<leader>q", "<cmd>q<cr>", { desc = "Quit" })
+map("n", "<leader>Q", "<cmd>qa<cr>", { desc = "Quit All" })
 
 -- highlights under cursor
 map("n", "<leader>ui", vim.show_pos, { desc = "Inspect Pos" })
@@ -154,3 +155,7 @@ if vim.fn.has("nvim-0.11") == 0 then
 		return vim.snippet.active({ direction = -1 }) and "<cmd>lua vim.snippet.jump(-1)<cr>" or "<S-Tab>"
 	end, { expr = true, desc = "Jump Previous" })
 end
+
+map("n", "<leader>wr", function()
+	vim.opt.wrap = true
+end, { desc = "Enable wrap" })

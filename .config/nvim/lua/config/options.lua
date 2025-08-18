@@ -86,7 +86,6 @@ vim.opt.wildignorecase = true -- Ignore case in wildmenu
 vim.opt.wildoptions = "pum" -- Use popup menu for wildmenu
 vim.opt.showtabline = 2 -- Always show tabline
 vim.opt.cmdwinheight = 5 -- Height of command window
-vim.opt.scrolljump = 5 -- Lines to scroll with Ctrl-U/D
 vim.opt.scrolloff = 5 -- Lines to keep above/below cursor
 
 -- UI Polishing

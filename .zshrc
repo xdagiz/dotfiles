@@ -65,19 +65,18 @@ source $ZSH/oh-my-zsh.sh
 
 alias zshrc="source ~/.zshrc"
 alias bat="batcat"
+alias ls="eza"
+alias li="eza --icons"
+alias tree="eza --tree"
 
 alias nvlz='NVIM_APPNAME=nvim-lazyvim nvim'
-alias nvim-astronvim='NVIM_APPNAME=nvim-astronvim nvim'
 alias nvki='NVIM_APPNAME=nvim-kickstart nvim'
 alias nvch='NVIM_APPNAME=nvim-nvchad nvim'
 alias nv2='NVIM_APPNAME=nvim2 nvim'
 
 nvv() {
-  # Assumes all configs exist in directories named ~/.config/nvim-*
   local config=$(fd --max-depth 1 --glob 'nvim-*' ~/.config | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
-  # If I exit fzf without selecting a config, don't open Neovim
-  [[ -z $config ]] && echo "No config selected" && return
-  # Open Neovim with the selected config
+  # [[ -z $config ]] && echo "No config selected" && return
   NVIM_APPNAME=$(basename $config) nvim $@
 }
 
@@ -106,17 +105,17 @@ esac
 # pnpm end
 
 ### Added by Zinit's installer
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
-
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+# if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+#     print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+#     command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+#     command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+#         print -P "%F{33} %F{34}Installation successful.%f%b" || \
+#         print -P "%F{160} The clone has failed.%f%b"
+# fi
+#
+# source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+# autoload -Uz _zinit
+# (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit's installer chunk
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

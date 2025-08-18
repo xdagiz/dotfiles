@@ -1,8 +1,11 @@
 return {
 	"stevearc/oil.nvim",
 	opts = {
-    delete_to_trash = true,
-    skip_confirm_for_simple_edits = true,
+		delete_to_trash = true,
+		skip_confirm_for_simple_edits = true,
+		keymaps = {
+			["q"] = "actions.close",
+		},
 		float = {
 			padding = 4,
 			max_width = 0.5,

@@ -1,6 +1,7 @@
 return {
 	"L3MON4D3/LuaSnip",
 	version = "2.*",
+	build = "make install_jsregexp",
 	dependencies = {
 		"rafamadriz/friendly-snippets",
 		config = function()
@@ -9,8 +10,6 @@ return {
 	},
 	opts = { history = true },
 	config = function()
-		require("luasnip").filetype_extend("typescriptreact", { "typescriptreact" })
-
-		require("luasnip").add_snippets("typescriptreact", require("snippets.typescriptreact"))
+		require("luasnip.loaders.from_snipmate").lazy_load()
 	end,
 }
