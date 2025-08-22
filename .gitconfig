@@ -16,6 +16,7 @@
 	st = status
 	co = checkout
 	br = branch
+	ss = status
 	cm = commit -m
 	lg = log --oneline --graph --all --decorate
 [credential]

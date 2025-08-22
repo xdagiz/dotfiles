@@ -16,13 +16,19 @@ local servers = {
   --   },
   -- },
   cssls = {},
-  -- ts_ls = { cmd = { "tsserver", "--stdio", "--tsserver-max-memory", "512" } },
-  -- ts_ls = {},
+  -- ts_ls = { cmd = { "typescript-language-server", "--stdio", "--tsserver-max-memory", "400" } },
+--  ts_ls = {
+--    settings = {
+--      typescript = {
+--        maxTsServerMemory = "400"
+--      }
+--    }
+--  },
 
-  -- tsgo = {},
-  tsgo = {
-    cmd = { "tsgo", "--lsp", "--stdio", "--tsgo-max-memory", "512" },
-  },
+  tsgo = {},
+  -- tsgo = {
+  --   cmd = { "tsgo", "--lsp", "--stdio", "--tsgo-max-memory", "512" },
+  -- },
 }
 
 for name, opts in pairs(servers) do

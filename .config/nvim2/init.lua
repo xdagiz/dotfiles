@@ -1,3 +1,2 @@
-require("config.options")
-require("config.keymaps")
-require("config.lazy")
+require("xdagiz.config")
+require("xdagiz.plugins")

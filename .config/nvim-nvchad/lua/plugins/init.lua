@@ -84,7 +84,9 @@ return {
         ["<C-f>"] = cmp.mapping.scroll_docs(4), -- Scroll documentation down
         ["<C-e>"] = cmp.mapping.abort(), -- Abort completion
       }
-      conf.mapping["<C-Space>"] = cmp.mapping.complete() -- Trigger completion
+      conf.mapping["<C-Space>"] = cmp.mapping(function()
+        cmp.complete()
+      end, { "i", "n" })
       -- conf.mapping["<C-y>"] = cmp.mapping.confirm { select = true } -- confirm completion with Ctrl+y
       conf.mapping["<C-n>"] = cmp.mapping(function(fallback)
         if cmp.visible() then
@@ -151,8 +153,10 @@ return {
       end, { "i", "s" })
 
       conf.mapping["<Tab>"] = cmp.mapping(function(fallback)
-        if require("copilot.suggestion").is_visible() then
-          require("copilot.suggestion").accept_line()
+        -- if require("copilot.suggestion").is_visible() then
+        --   require("copilot.suggestion").accept_line()
+        if cmp.visible() then
+          cmp.confirm { select = true } -- confirm completion
         elseif luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump() -- jump to next snippet placeholder
         else
@@ -161,9 +165,9 @@ return {
       end, { "i", "s" })
 
       conf.mapping["<C-y>"] = cmp.mapping(function(fallback)
-        if require("copilot.suggestion").is_visible() then
-          require("copilot.suggestion").accept()
-        elseif cmp.visible() then
+        -- if require("copilot.suggestion").is_visible() then
+        --   require("copilot.suggestion").accept()
+        if cmp.visible() then
           cmp.confirm { select = true } -- confirm completion
         elseif luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump() -- jump to next snippet placeholder
@@ -173,9 +177,9 @@ return {
       end, { "i", "s" })
 
       conf.mapping["<CR>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.confirm { select = true } -- confirm completion
-        elseif luasnip.expand_or_jumpable() then
+        -- if cmp.visible() then
+        --   cmp.confirm { select = true } -- confirm completion
+        if luasnip.expand_or_jumpable() then
           luasnip.expand_or_jump() -- jump to next snippet placeholder
         else
           fallback()
