@@ -68,7 +68,6 @@ alias bat="batcat"
 alias ls="eza"
 alias li="eza --icons"
 alias tree="eza --tree"
-alias cd="z"
 
 alias nvlz='NVIM_APPNAME=nvim-lazyvim nvim'
 alias nvki='NVIM_APPNAME=nvim-kickstart nvim'
@@ -99,7 +98,8 @@ bindkey "^n" history-search-forward
 # bindkey -v
 
 # Zoxide
-eval "$(zoxide init zsh)"
+# eval "$(zoxide init zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
 # pnpm
 export PNPM_HOME="/home/xdagiz/.local/share/pnpm"
