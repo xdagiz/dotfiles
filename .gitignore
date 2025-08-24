@@ -1,5 +1,16 @@
+*
 .config/nvim-kickstart
 .config/go
 .config/btop
 .config/tmux/plugins
 .config/exercism
+.config/github-copilot
+
+!.confg/nvim
+!.confg/nvim-lazyvim
+!.confg/nvim2
+!.confg/tmux
+!.zshrc
+!.p10k.zsh
+!.gitignore
+!.README.md

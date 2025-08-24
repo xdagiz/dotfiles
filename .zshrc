@@ -84,6 +84,11 @@ mkcd() {
   mkdir -p "$1" && cd "$1"
 }
 
+adbpush() {
+  adb.exe push $1 $2 $3 $4 $SDPATH
+}
+alias adbsh="adb.exe shell"
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
@@ -135,3 +140,5 @@ export FZF_DEFAULT_OPTS=" \
 
 # Turso
 export PATH="$PATH:/home/xdagiz/.turso"
+
+export SDPATH="/storage/AAEE-1306"

@@ -158,7 +158,9 @@ return {
 				},
 			})
 
-			require("lspconfig").tsgo.setup()
+			require("lspconfig").tsgo.setup({
+				cmd = "tsgo",
+			})
 		end,
 	},
 }
