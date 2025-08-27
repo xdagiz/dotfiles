@@ -18,3 +18,6 @@ alias ls="eza"
 alias li="eza --icons"
 alias tree="eza --tree"
 
+
+# Generated for envman. Do not edit.
+test -s ~/.config/envman/load.fish; and source ~/.config/envman/load.fish

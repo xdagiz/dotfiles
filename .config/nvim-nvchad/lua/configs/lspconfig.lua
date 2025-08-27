@@ -17,13 +17,13 @@ local servers = {
   -- },
   cssls = {},
   -- ts_ls = { cmd = { "typescript-language-server", "--stdio", "--tsserver-max-memory", "400" } },
---  ts_ls = {
---    settings = {
---      typescript = {
---        maxTsServerMemory = "400"
---      }
---    }
---  },
+  --  ts_ls = {
+  --    settings = {
+  --      typescript = {
+  --        maxTsServerMemory = "400"
+  --      }
+  --    }
+  --  },
 
   tsgo = {},
   -- tsgo = {

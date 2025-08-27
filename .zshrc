@@ -63,10 +63,26 @@ source $ZSH/oh-my-zsh.sh
 # - $ZSH_CUSTOM/macos.zsh
 # For a full list of active aliases, run `alias`.
 
+# ====== ALIASES ======
+
+# Git shortcuts
+alias g='git'
+alias ga='git add'
+alias gc='git commit -m'
+alias gco='git checkout'
+alias gs='git status -sb'
+alias gss='git status'
+alias gd='git diff'
+alias gl='git log --oneline --graph --decorate'
+
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias ~='cd ~'
+alias clr='clear'
 alias zshrc="source ~/.zshrc"
 alias bat="batcat"
-alias ls="eza"
-alias li="eza --icons"
+alias ls="eza --icons"
 alias tree="eza --tree"
 
 alias nvlz='NVIM_APPNAME=nvim-lazyvim nvim'
@@ -84,9 +100,31 @@ mkcd() {
   mkdir -p "$1" && cd "$1"
 }
 
-adbpush() {
-  adb.exe push $1 $2 $3 $4 $SDPATH
+# Extract helper: tar, zip, rar, etc.
+extract() {
+  if [ -f "$1" ]; then
+    case "$1" in
+    *.tar.bz2) tar xjf "$1" ;;
+    *.tar.gz) tar xzf "$1" ;;
+    *.bz2) bunzip2 "$1" ;;
+    *.rar) unrar x "$1" ;;
+    *.gz) gunzip "$1" ;;
+    *.tar) tar xf "$1" ;;
+    *.tbz2) tar xjf "$1" ;;
+    *.tgz) tar xzf "$1" ;;
+    *.zip) unzip "$1" ;;
+    *.7z) 7z x "$1" ;;
+    *) echo "'$1' cannot be extracted" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
 }
+
+adbpush() {
+  adb.exe push $1 $2 $3 $4 $5 $6 $SDPATH
+}
+
 alias adbsh="adb.exe shell"
 
 export NVM_DIR="$HOME/.nvm"
