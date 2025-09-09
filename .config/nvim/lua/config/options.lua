@@ -81,7 +81,7 @@ vim.opt.wildmode = { "list", "longest" }
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 
 -- Search & Command Line
-vim.opt.wildignore = { "*.swp", "*.bak", "*.tmp", "*.o", "*.obj", "*.exe", "*.dll" } -- Ignore these files in wildmenu
+-- vim.opt.wildignore = { "*.swp", "*.bak", "*.tmp", "*.o", "*.obj", "*.exe", "*.dll" } -- Ignore these files in wildmenu
 vim.opt.wildignorecase = true -- Ignore case in wildmenu
 vim.opt.wildoptions = "pum" -- Use popup menu for wildmenu
 vim.opt.showtabline = 2 -- Always show tabline
@@ -91,12 +91,12 @@ vim.opt.scrolloff = 5 -- Lines to keep above/below cursor
 -- UI Polishing
 vim.opt.showtabline = 2 -- Always show tabline
 vim.opt.tabline = "" -- Custom in statusline plugin
-vim.opt.guifont = "FiraCode Nerd Font:h14"
+-- vim.opt.guifont = "Geist Mono:h14"
 vim.opt.title = true -- Show filename in titlebar
 vim.opt.titlestring = "%F - NVIM"
 vim.opt.matchpairs:append("<:>") -- Highlight <> pairs
 vim.opt.cursorlineopt = "number" -- Highlight line number only
-vim.opt.wildignore:append({ "node_modules", "*.pyc", "*.o", "*.obj", "*.dll" })
+-- vim.opt.wildignore:append({ "node_modules", "*.pyc", "*.o", "*.obj", "*.dll" })
 vim.opt.conceallevel = 2 -- Hide markdown formatting
 vim.opt.spell = false -- Disable spellcheck
 vim.opt.spelllang = { "en_us" } -- Spellcheck language

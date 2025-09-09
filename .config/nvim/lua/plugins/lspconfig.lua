@@ -159,6 +159,7 @@ return {
 			})
 
 			require("lspconfig").tsgo.setup({
+				mason = false,
 				cmd = "tsgo",
 			})
 		end,

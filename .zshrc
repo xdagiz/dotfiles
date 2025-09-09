@@ -89,6 +89,7 @@ alias nvlz='NVIM_APPNAME=nvim-lazyvim nvim'
 alias nvki='NVIM_APPNAME=nvim-kickstart nvim'
 alias nvch='NVIM_APPNAME=nvim-nvchad nvim'
 alias nv2='NVIM_APPNAME=nvim2 nvim'
+alias vim="NVIM_APPNAME=nvim-plain nvim"
 
 nvv() {
   local config=$(fd --max-depth 1 --glob 'nvim-*' ~/.config | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
@@ -170,7 +171,8 @@ esac
 
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls $realpath'
 # --color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
-export FZF_DEFAULT_OPTS=" \
+export FZF_DEFAULT_OPTS="\
+--height 40% --tmux center --layout reverse
 --color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
 --color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
 --color=selected-bg:#45475A \
@@ -180,3 +182,4 @@ export FZF_DEFAULT_OPTS=" \
 export PATH="$PATH:/home/xdagiz/.turso"
 
 export SDPATH="/storage/AAEE-1306"
+export DEBUG='grammy*'
