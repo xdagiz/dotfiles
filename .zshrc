@@ -171,8 +171,9 @@ esac
 
 zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls $realpath'
 # --color=bg+:#313244,bg:#1E1E2E,spinner:#F5E0DC,hl:#F38BA8 \
+# --height 40% --tmux center --layout reverse
 export FZF_DEFAULT_OPTS="\
---height 40% --tmux center --layout reverse
+--height 40% --layout reverse
 --color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
 --color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8 \
 --color=selected-bg:#45475A \
@@ -183,3 +184,6 @@ export PATH="$PATH:/home/xdagiz/.turso"
 
 export SDPATH="/storage/AAEE-1306"
 export DEBUG='grammy*'
+eval "$(atuin init zsh)"
+
+. "$HOME/.atuin/bin/env"
