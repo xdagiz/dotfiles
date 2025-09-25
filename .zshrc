@@ -90,6 +90,7 @@ alias nvki='NVIM_APPNAME=nvim-kickstart nvim'
 alias nvch='NVIM_APPNAME=nvim-nvchad nvim'
 alias nv2='NVIM_APPNAME=nvim2 nvim'
 alias vim="NVIM_APPNAME=nvim-plain nvim"
+alias apt-search="apt-cache search . | fzf --preview 'apt-cache show {1}' --layout=reverse --height=50%"
 
 nvv() {
   local config=$(fd --max-depth 1 --glob 'nvim-*' ~/.config | fzf --prompt="Neovim Configs > " --height=~50% --layout=reverse --border --exit-0)
@@ -184,6 +185,7 @@ export PATH="$PATH:/home/xdagiz/.turso"
 
 export SDPATH="/storage/AAEE-1306"
 export DEBUG='grammy*'
-eval "$(atuin init zsh)"
+eval "$(atuin init zsh --disable-up-arrow)"
 
 . "$HOME/.atuin/bin/env"
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet

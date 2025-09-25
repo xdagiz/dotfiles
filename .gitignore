@@ -5,6 +5,7 @@
 !.confg/nvim2
 !.confg/tmux
 !.config/fish
+!.config/starship
 !.zshrc
 !.p10k.zsh
 !.gitignore
