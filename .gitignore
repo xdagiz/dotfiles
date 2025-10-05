@@ -1,11 +1,11 @@
 *
 
-!.confg/nvim
-!.confg/nvim-lazyvim
-!.confg/nvim2
-!.confg/tmux
+!.config/nvim
+!.config/nvim-lazyvim
+!.config/nvim2
+!.config/tmux
 !.config/fish
-!.config/starship
+!.config/starship.toml
 !.zshrc
 !.p10k.zsh
 !.gitignore
