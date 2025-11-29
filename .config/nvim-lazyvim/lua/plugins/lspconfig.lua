@@ -2,24 +2,38 @@ return {
   "neovim/nvim-lspconfig",
   opts = {
     servers = {
-      ts_ls = {
-        enabled = false,
+      ahk2 = {
+        autostart = true,
+        cmd = {
+          "node",
+          vim.fn.expand("~/vscode-autohotkey2-lsp/server/dist/server.js"),
+          "--stdio",
+        },
+        filetypes = { "ahk", "autohotkey", "ah2" },
+        init_options = {
+          locale = "en-us",
+          InterpreterPath = "/mnt/c/Program\\ Files/AutoHotkey/v2/AutoHotkey.exe",
+        },
+        single_file_support = true,
+        flags = { debounce_text_changes = 500 },
+      },
+      ts_ls = { enabled = false },
+      tsserver = { enabled = false },
+      tailwindcss = { enabled = false },
+      lua_ls = { enabled = false },
+      --gopls = { enabled = false },
+      eslint = { enabled = false },
+      vtsls = {
+        enabled = true,
+        autostart = false,
         settings = {
           typescript = {
             tsserver = {
               maxTsServerMemory = 500,
             },
-            format = {
-              enable = false,
-            },
           },
         },
       },
-      tsgo = { enabled = false, settings = {} },
-      tailwindcss = { enabled = false },
-      lua_ls = { enabled = false },
-      gopls = { enabled = false },
-      eslint = { enabled = false },
     },
   },
 }

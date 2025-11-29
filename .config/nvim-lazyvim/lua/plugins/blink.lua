@@ -9,10 +9,15 @@ return {
   ---@type blink.cmp.Config
   opts = {
     completion = {
+      accept = {
+        auto_brackets = {
+          enabled = true,
+        },
+      },
       menu = {
-        auto_show = false,
+        draw = { treesitter = { "lsp" } },
+        auto_show = true,
         border = "rounded",
-        winblend = 0,
       },
     },
 

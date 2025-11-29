@@ -13,6 +13,8 @@ return {
         end,
       },
     },
-    opts = {},
+    opts = {
+      cut_selection_keys = "<Tab>",
+    },
   },
 }

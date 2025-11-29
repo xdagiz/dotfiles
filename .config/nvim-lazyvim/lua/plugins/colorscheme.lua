@@ -2,6 +2,7 @@ return {
   {
     "catppuccin/nvim",
     name = "catppuccin",
+    lazy = true,
     ---@module 'catppuccin'
     ---@type CatppuccinOptions
     opts = {
@@ -10,23 +11,24 @@ return {
         solid = true,
         transparent = true,
       },
-      flavour = "mocha",
-      auto_integrations = true,
-      integrations = {
-        blink_cmp = true,
-      },
     },
   },
   {
     "rose-pine/neovim",
     name = "rose-pine",
+    lazy = true,
     opts = {
-      variant = "main",
+      variant = "moon",
       styles = {
         transparency = true,
         italic = false,
       },
     },
+  },
+  {
+    "folke/tokyonight.nvim",
+    lazy = true,
+    opts = { transparent = true, styles = { floats = "transparent", sidebars = "transparent" } },
   },
   {
     "LazyVim/LazyVim",
