@@ -18,6 +18,9 @@ return {
         draw = { treesitter = { "lsp" } },
         auto_show = true,
         border = "rounded",
+        winhighlight = "Normal:None",
+        max_height = 20,
+        min_width = 16,
       },
     },
 

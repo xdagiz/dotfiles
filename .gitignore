@@ -6,6 +6,7 @@
 !.config/tmux
 !.config/fish
 !.config/starship.toml
+!.config/gitui
 !.zshrc
 !.p10k.zsh
 !.gitignore
