@@ -1,12 +1,8 @@
-[user]
-	name = Dagmawi Ali
-	email = xdagizjr2112@gmail.com
 [core]
 	editor = nvim
 	autocrlf = input
 [init]
 	defaultBranch = main
-
 [push]
   autoSetupRemote = true
   defaut = current
@@ -19,9 +15,3 @@
 	ss = status
 	cm = commit -m
 	lg = log --oneline --graph --all --decorate
-[credential]
-	username = xdagiz
-[safe]
-	directory = /run/media/xdagiz/46469FAD469F9C6D/Users/xgame/dev/Projects/xchatz-web
-	directory = /run/media/xdagiz/46469FAD469F9C6D/Users/xgame/dev/Projects/xytz-go
-	directory = /run/media/xdagiz/Local Disk/lumen
