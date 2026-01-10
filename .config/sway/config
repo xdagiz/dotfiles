@@ -1,0 +1,188 @@
+include catppuccin-mocha
+
+set $mod Mod4
+set $term alacritty
+set $menu wofi --show drun
+
+set $swaylock swaylock \
+  --screenshots \
+  --clock \
+  --indicator \
+  --indicator-radius 120 \
+  --indicator-thickness 7 \
+  --effect-blur 6x6 \
+  --effect-vignette 0.5:0.5 \
+  --fade-in 0.2
+
+input "type:keyboard" {
+    xkb_layout us
+    xkb_options caps:swapescape
+    xkb_numlock enabled
+}
+
+smart_corner_radius enable
+corner_radius 8
+blur enable
+blur_xray disable
+blur_passes 3
+blur_radius 3
+
+exec_always swaybg -i ~/Pictures/retro2_live-l.gif -m fill
+
+bindsym $mod+Shift+x exec $swaylock
+exec_always swayidle -w \
+  timeout 800 "$swaylock" \
+  resume 'swaymsg "output * power on"'
+
+exec /usr/bin/lxqt-policykit-agent
+exec $term
+exec mako
+exec earlyroom -m 10
+
+xwayland disable
+
+gaps inner 8
+gaps outer 8
+default_border pixel 1
+default_floating_border pixel 1
+for_window [class=".*"] title_format ""
+
+focus_follows_mouse no
+mouse_warping none
+
+floating_modifier $mod
+
+bindsym $mod+Return exec $term
+bindsym $mod+d exec wofi --show run
+bindsym Alt+Space exec $menu
+bindsym $mod+Shift+q kill
+bindsym $mod+c kill
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec swaynag -t warning -m \
+  'You pressed exit. Quit Sway?' -b 'Yes, exit' 'swaymsg exit'
+
+bindsym $mod+Alt+Down exec wlrctl pointer scroll 10 0
+bindsym $mod+Alt+Up exec wlrctl pointer scroll -10 0
+bindsym $mod+Alt+d exec wlrctl pointer scroll 10 0
+bindsym $mod+Alt+u exec wlrctl pointer scroll -10 0
+
+bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy && \
+  notify-send "Screenshot Saved"
+bindsym Print exec grim ~/Pictures/$(date +%F_%H-%M-%S).png && \
+  notify-send "Screenshot Saved"
+
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+set $volumeNoti "Volume $(pactl get-sink-volume @DEFAULT_SINK@ | awk '/%/ {print $5}' | head -n1)" \
+  -h string:x-canonical-private-synchronous:volume
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2% && notify-send $volumeNoti
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2% && notify-send $volumeNoti
+bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send "Mute toggled" -h string:x-canonical-private-synchronous:volume
+
+bindsym XF86AudioPrev exec playerctl previous
+bindsym XF86AudioNext exec playerctl next
+bindsym XF86AudioPlay exec playerctl play-pause
+bindsym XF86AudioPause exec playerctl play-pause
+
+bindsym XF86HomePage exec brave
+
+bindsym $mod+f fullscreen toggle
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+bindsym $mod+minus split h
+bindsym $mod+v split v
+
+mode "resize" {
+    bindsym h resize shrink width 2 px or 2 ppt
+    bindsym j resize grow height 2 px or 2 ppt
+    bindsym k resize shrink height 2 px or 2 ppt
+    bindsym l resize grow width 2 px or 2 ppt
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+7 workspace number $ws1
+bindsym $mod+8 workspace number $ws2
+bindsym $mod+9 workspace number $ws3
+bindsym $mod+0 workspace number $ws4
+bindsym $mod+underscore workspace number $ws5
+
+bindsym Alt+1 workspace number $ws1
+bindsym Alt+2 workspace number $ws2
+bindsym Alt+3 workspace number $ws3
+bindsym Alt+4 workspace number $ws4
+bindsym Alt+5 workspace number $ws5
+bindsym Alt+7 workspace number $ws1
+bindsym Alt+8 workspace number $ws2
+bindsym Alt+9 workspace number $ws3
+bindsym Alt+0 workspace number $ws4
+bindsym Alt+underscore workspace number $ws5
+
+bindsym $mod+Shift+1 move container to workspace number $ws1; workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2; workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3; workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4; workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5; workspace number $ws5
+
+bindsym $mod+Ctrl+l workspace next
+bindsym $mod+Ctrl+h workspace prev
+
+# target                 title     bg    text   indicator  border
+client.focused           $lavender $base $text  $rosewater $lavender
+client.focused_inactive  $overlay0 $base $text  $rosewater $overlay0
+client.unfocused         $overlay0 $base $text  $rosewater $overlay0
+client.urgent            $peach    $base $peach $overlay0  $peach
+client.placeholder       $overlay0 $base $text  $overlay0  $overlay0
+client.background        $base
+
+bar {
+        swaybar_command waybar
+}
+
+# # swaybar
+# bar {
+#   colors {
+#     background         $base
+#     statusline         $text
+#     focused_statusline $text
+#     focused_separator  $base
+#
+#     # target           border bg        text
+#     focused_workspace  $base  $mauve    $crust
+#     active_workspace   $base  $surface2 $text
+#     inactive_workspace $base  $base     $text
+#     urgent_workspace   $base  $red      $crust
+#   }
+# }

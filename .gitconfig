@@ -21,3 +21,7 @@
 	lg = log --oneline --graph --all --decorate
 [credential]
 	username = xdagiz
+[safe]
+	directory = /run/media/xdagiz/46469FAD469F9C6D/Users/xgame/dev/Projects/xchatz-web
+	directory = /run/media/xdagiz/46469FAD469F9C6D/Users/xgame/dev/Projects/xytz-go
+	directory = /run/media/xdagiz/Local Disk/lumen

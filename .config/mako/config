@@ -1,0 +1,12 @@
+border-size=1
+border-radius=4
+default-timeout=2000
+font=GeistMono Nerd Font 10
+
+background-color=#1e1e2e
+text-color=#cdd6f4
+border-color=#f5c2e7
+progress-color=over #313244
+
+[urgency=high]
+border-color=#fab387

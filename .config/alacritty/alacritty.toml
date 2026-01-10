@@ -1,0 +1,42 @@
+general.import = ["~/.config/alacritty/catppuccin-mocha.toml"]
+
+[env]
+TERM = "alacritty"
+
+[terminal]
+shell = { program = "/usr/bin/tmux", args = [
+  "new-session",
+  "-A",
+  "-D",
+  "-s",
+  "main",
+] }
+
+[font]
+normal = { family = "GeistMono Nerd Font Mono", style = "Regular" }
+bold = { family = "GeistMono Nerd Font Mono", style = "Bold" }
+italic = { family = "GeistMono Nerd Font Mono", style = "Italic" }
+size = 13
+
+[window]
+padding.x = 20
+padding.y = 14
+dynamic_padding = true
+opacity = 0.95
+blur = true
+# decorations = "none"
+
+[keyboard]
+bindings = [
+  { key = "Insert", mods = "Shift", action = "Paste" },
+  { key = "Insert", mods = "Control", action = "Copy" },
+  { key = "c", mods = "Control|Shift", action = "Copy" },
+  { key = "v", mods = "Control|Shift", action = "Paste" },
+]
+
+[scrolling]
+history = 100000
+multiplier = 3
+
+[cursor]
+style = { blinking = "On" }

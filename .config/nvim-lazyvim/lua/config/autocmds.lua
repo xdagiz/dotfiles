@@ -70,3 +70,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
     biome_fix_all(client, args.buf)
   end,
 })
+
+vim.cmd("silent! Copilot disable")

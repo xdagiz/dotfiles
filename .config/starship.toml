@@ -1,0 +1,100 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """
+$os\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_state\
+$git_status\
+$cmd_duration\
+$c\
+$rust\
+$golang\
+$nodejs\
+$python\
+$line_break\
+$character"""
+
+[directory]
+style = "blue"
+
+[character]
+success_symbol = "[❯](purple)"
+error_symbol = "[❯](red)"
+vimcmd_symbol = "[❮](green)"
+
+[os]
+disabled = false
+format = "[$symbol ]($style)"
+
+[os.symbols]
+Arch = "󰣇"
+Ubuntu = "󰕈"
+Mint = "󰣭"
+Macos = "󰀵"
+Linux = "󰌽"
+Gentoo = "󰣨"
+Fedora = "󰣛"
+Alpine = ""
+Artix = "󰣇"
+Debian = "󰣚"
+EndeavourOS = "󰣇"
+
+[directory.substitutions]
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+"Developer" = "󰲋 "
+
+[git_branch]
+format = "[$branch]($style)"
+style = "bright-black"
+
+[git_status]
+format = "[[(* $conflicted$untracked$modified$staged$renamed$deleted)](218) ($ahead_behind$stashed) ]($style)"
+style = "cyan"
+conflicted = "$count= "
+untracked = "$count? "
+modified = "$count! "
+staged = "$count+ "
+renamed = "$count» "
+deleted = "$count✘ "
+stashed = "$count≡ "
+
+[git_state]
+format = '\([$state( $progress_current/$progress_total)]($style)\) '
+style = "bright-black"
+
+[cmd_duration]
+format = "[$duration]($style) "
+style = "yellow"
+
+[nodejs]
+symbol = ""
+style = "green"
+format = '[$symbol( $version)]($style)'
+
+[c]
+symbol = " "
+style = "blue"
+format = '[$symbol( $version)]($style)'
+
+[rust]
+symbol = ""
+style = "cyan"
+format = '[$symbol( $version)]($style)'
+
+[golang]
+symbol = ""
+style = "blue"
+format = '[$symbol( $version)]($style)'
+
+[python]
+symbol = ""
+style = "yellow"
+format = '[$symbol( $version)(\(#$virtualenv\))]($style)'
+detect_extensions = []
+detect_files = []

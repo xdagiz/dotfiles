@@ -1,5 +1,11 @@
 *
 
+!.config/waybar
+!.config/alacritty
+!.config/mako
+!.config/wofi
+!.config/rofi
+!.config/sway
 !.config/nvim
 !.config/nvim-lazyvim
 !.config/nvim2

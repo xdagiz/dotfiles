@@ -14,15 +14,22 @@ set -gx DEBUG 'grammy*'
 set -gx STARSHIP_LOG error
 set -gx ATUIN_NOBIND true
 set -gx TERMINFO ~/.terminfo
+set -gx NODE_OPTIONS "--max-old-space-size=2200"
 
 set -U fish_greeting
 
 if status is-interactive
     starship init fish | source
+    fzf --fish | source
     atuin init fish | source
     zoxide init --cmd cd fish | source
 
     fish_vi_key_bindings
+    set -g fish_cursor_default block
+    set -g fish_cursor_insert block
+    set -g fish_cursor_replace_one underscore
+    set -g fish_cursor_visual block
+
     fzf_configure_bindings --directory=\ct --variables=\e\cv
 
     function fish_user_key_bindings
@@ -69,19 +76,6 @@ if status is-interactive
         end
     end
 
-    function adbpush
-        adb.exe push $argv[1] $argv[2] $argv[3] $argv[4] $argv[5] $argv[6] $SDPATH
-    end
-
-    function apt-install
-        set -l package (apt-cache search . | fzf --preview 'apt-cache show {1}' --layout=reverse --height=50% | awk '{print $1}')
-        if test -z "$package"
-            echo "No package selected"
-            return 1
-        end
-        sudo apt install $package
-    end
-
     function rmfzf
         set files (fd --max-depth 1 . --type file | fzf -m --preview "bat --style=numbers --color=always --line-range :500 {}")
         if set -q files[1]
@@ -95,6 +89,19 @@ if status is-interactive
                 echo "Deleted: $files"
             end
         end
+    end
+
+    function adbpush
+        adb push $argv[1] $argv[2] $argv[3] $argv[4] $argv[5] $argv[6] $SDPATH
+    end
+
+    function apt-install
+        set -l package (apt-cache search . | fzf --preview 'apt-cache show {1}' --layout=reverse --height=50% | awk '{print $1}')
+        if test -z "$package"
+            echo "No package selected"
+            return 1
+        end
+        sudo apt install $package
     end
 
     alias g='git'
@@ -111,11 +118,11 @@ if status is-interactive
     alias ....='cd ../../..'
     alias clr=clear
     alias fishrc='source ~/.config/fish/config.fish'
-    alias bat=batcat
+    # alias bat=batcat
     alias ls='eza --icons'
     alias tree='eza --tree'
     alias rmrf='rm -rf'
-    alias nvlz='NVIM_APPNAME=nvim-lazyvim nvim'
+    alias v='NVIM_APPNAME=nvim-lazyvim nvim'
     alias nvki='NVIM_APPNAME=nvim-kickstart nvim'
     alias nvch='NVIM_APPNAME=nvim-nvchad nvim'
     alias nv2='NVIM_APPNAME=nvim2 nvim'
@@ -130,3 +137,7 @@ set -gx FZF_DEFAULT_OPTS \
     '--color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8' \
     '--color=selected-bg:#45475A' \
     '--color=border:#6C7086,label:#CDD6F4'
+
+# bun
+set --export BUN_INSTALL "$HOME/.bun"
+set --export PATH $BUN_INSTALL/bin $PATH
