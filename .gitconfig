@@ -15,3 +15,6 @@
 	ss = status
 	cm = commit -m
 	lg = log --oneline --graph --all --decorate
+[user]
+	email = xdagizjr2112@gmail.com
+	name = Dagmawi Ali
