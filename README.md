@@ -3,26 +3,23 @@
 - **Terminal**: Alacritty configuration
 - **Editor**: Neovim
 - **Shell**: fish + starship
-- **WM**: Sway
+- **WM**: Niri
 - **Bar**: Waybar
-- **Launcher**: Wofi
+- **Launcher**: Rofi
 - **Colorscheme**: Catppuccin Mocha
-- **Other**: tmux, btop, mako, rofi
+- **Other**: tmux, btop, mako, wofi
 
 ## Screenshots
+
 <p align="center">
-  <img src="screenshots/2026-01-10_13-28-52.png" width="49%">
-  <img src="screenshots/fastfetch.png" width="49%">
+  <img src="./screenshots/waybar.png" width="100%">
 </p>
 
 <p align="center">
-  <img src="screenshots/waybar.png" width="49%">
-  <img src="screenshots/btop.png" width="49%">
+  <img src="./screenshots/fastfetch.png" width="49%">
+  <img src="./screenshots/neovim.png" width="49%">
 </p>
 
-<p align="center">
-  <img src="screenshots/2026-01-06_20-26-00.png" width="100%">
-</p>
 
 ## Installation
 
@@ -34,5 +31,5 @@ cd ~/dotfiles
 stow .
 
 # or individually
-stow sway waybar alacritty tmux ...
+stow niri waybar alacritty tmux ...
 ```
