@@ -6,6 +6,7 @@
 !.config/wofi
 !.config/rofi
 !.config/sway
+!.config/niri
 !.config/nvim
 !.config/nvim-lazyvim
 !.config/nvim2

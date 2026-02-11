@@ -2,83 +2,100 @@ include catppuccin-mocha
 
 set $mod Mod4
 set $term alacritty
-set $menu wofi --show drun
+set $menu rofi -show drun
 
 set $swaylock swaylock \
   --screenshots \
   --clock \
   --indicator \
-  --indicator-radius 120 \
-  --indicator-thickness 7 \
-  --effect-blur 6x6 \
-  --effect-vignette 0.5:0.5 \
-  --fade-in 0.2
+	--effect-blur 8x8 \
+  --indicator-radius 80 \
+  --indicator-thickness 8 \
+	--timestr "%I:%M%p" \
+	--font "GeistMono Nerd Font"
 
 input "type:keyboard" {
     xkb_layout us
-    xkb_options caps:swapescape
+    # xkb_options caps:swapescape
     xkb_numlock enabled
 }
 
-smart_corner_radius enable
-corner_radius 8
-blur enable
-blur_xray disable
-blur_passes 3
-blur_radius 3
+# smart_corner_radius enable
+# corner_radius 8
+# blur enable
+# blur_xray disable
+# blur_passes 3
+# blur_radius 3
+# layer_effects "waybar" {
+#     blur enable;
+#     blur_xray enable;
+#     blur_ignore_transparent enable;
+#     shadows enable;
+#     corner_radius 20;
+# }
 
-exec_always swaybg -i ~/Pictures/retro2_live-l.gif -m fill
+# exec_always swaybg -i ~/Pictures/retro2_live-l.gif -m fill
+exec_always swaybg -i ~/Pictures/square-city.jpg -m fill
+
+seat seat0 xcursor_theme Bibata-Modern-Classic 26
+output VGA-1 mode 1280x1024@60Hz
 
 bindsym $mod+Shift+x exec $swaylock
 exec_always swayidle -w \
   timeout 800 "$swaylock" \
   resume 'swaymsg "output * power on"'
 
+exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
 exec /usr/bin/lxqt-policykit-agent
 exec $term
 exec mako
-exec earlyroom -m 10
 
 xwayland disable
 
+smart_gaps inverse_outer
 gaps inner 8
 gaps outer 8
 default_border pixel 1
 default_floating_border pixel 1
-for_window [class=".*"] title_format ""
+for_window [app_id="vlc"] floating enable, move position center
+for_window [app_id="mpv"] floating enable, move position center
+for_window [app_id="scrcpy"] floating enable, move position center
+for_window [app_id="com.github.hluk.copyq"] floating enable, move position center, resize set 400px 512px
 
 focus_follows_mouse no
-mouse_warping none
 
 floating_modifier $mod
 
 bindsym $mod+Return exec $term
-bindsym $mod+d exec wofi --show run
+bindsym $mod+d exec rofi -show run
+bindsym $mod+Shift+v exec copyq show
 bindsym Alt+Space exec $menu
 bindsym $mod+Shift+q kill
 bindsym $mod+c kill
+bindsym $mod+q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
-bindsym $mod+Shift+e exec swaynag -t warning -m \
-  'You pressed exit. Quit Sway?' -b 'Yes, exit' 'swaymsg exit'
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Quit Sway?' -b 'Yes, exit' 'swaymsg exit'
+bindsym $mod+Space exec vicinae toggle
 
-bindsym $mod+Alt+Down exec wlrctl pointer scroll 10 0
-bindsym $mod+Alt+Up exec wlrctl pointer scroll -10 0
-bindsym $mod+Alt+d exec wlrctl pointer scroll 10 0
-bindsym $mod+Alt+u exec wlrctl pointer scroll -10 0
+exec wl-paste --watch cliphist store
+bindsym Mod1+p exec cliphist list | wofi -S dmenu | cliphist decode | wl-copy
 
-bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy && \
-  notify-send "Screenshot Saved"
-bindsym Print exec grim ~/Pictures/$(date +%F_%H-%M-%S).png && \
-  notify-send "Screenshot Saved"
+# bindsym $mod+Alt+Down exec wlrctl pointer scroll 10 0
+# bindsym $mod+Alt+Up exec wlrctl pointer scroll -10 0
+# bindsym $mod+Alt+d exec wlrctl pointer scroll 10 0
+# bindsym $mod+Alt+u exec wlrctl pointer scroll -10 0
+
+bindsym $mod+Shift+s exec grim -g "$(slurp)" - | wl-copy && notify-send "Screenshot Saved"
+bindsym Print exec grim ~/Pictures/Screenshots/$(date +%F_%H-%M-%S).png && notify-send "Screenshot Saved"
 
 bindsym $mod+h focus left
 bindsym $mod+j focus down
 bindsym $mod+k focus up
 bindsym $mod+l focus right
 
-set $volumeNoti "Volume $(pactl get-sink-volume @DEFAULT_SINK@ | awk '/%/ {print $5}' | head -n1)" \
-  -h string:x-canonical-private-synchronous:volume
+set $volumeNoti "Volume $(pactl get-sink-volume @DEFAULT_SINK@ | awk '/%/ {print $5}' | head -n1)" -h string:x-canonical-private-synchronous:volume
 bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +2% && notify-send $volumeNoti
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -2% && notify-send $volumeNoti
 bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && notify-send "Mute toggled" -h string:x-canonical-private-synchronous:volume
@@ -95,18 +112,20 @@ bindsym $mod+s layout stacking
 bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
-bindsym $mod+a focus parent
+# bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus child
+bindsym $mod+Shift+a focus parent
+bindsym $mod+Shift+f focus next
 
 bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
 
-bindsym $mod+Shift+Left move left
+# bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
+# bindsym $mod+Shift+Right move right
 
 bindsym $mod+minus split h
 bindsym $mod+v split v
@@ -155,9 +174,20 @@ bindsym $mod+Shift+2 move container to workspace number $ws2; workspace number $
 bindsym $mod+Shift+3 move container to workspace number $ws3; workspace number $ws3
 bindsym $mod+Shift+4 move container to workspace number $ws4; workspace number $ws4
 bindsym $mod+Shift+5 move container to workspace number $ws5; workspace number $ws5
+bindsym $mod+Shift+7 move container to workspace number $ws1; workspace number $ws1
+bindsym $mod+Shift+8 move container to workspace number $ws2; workspace number $ws2
+bindsym $mod+Shift+9 move container to workspace number $ws3; workspace number $ws3
+bindsym $mod+Shift+0 move container to workspace number $ws4; workspace number $ws4
+
+bindsym $mod+Shift+Right move container to workspace next; workspace next
+bindsym $mod+Shift+Alt+l move container to workspace next; workspace next;
+bindsym $mod+Shift+Alt+h move container to workspace prev; workspace prev;
+bindsym $mod+Shift+Left move container to workspace prev; workspace prev
 
 bindsym $mod+Ctrl+l workspace next
 bindsym $mod+Ctrl+h workspace prev
+bindsym $mod+Alt+l workspace next
+bindsym $mod+Alt+h workspace prev
 
 # target                 title     bg    text   indicator  border
 client.focused           $lavender $base $text  $rosewater $lavender
@@ -171,8 +201,11 @@ bar {
         swaybar_command waybar
 }
 
-# # swaybar
+# swaybar
 # bar {
+# 	position top
+#   status_command i3status
+#   height 28
 #   colors {
 #     background         $base
 #     statusline         $text

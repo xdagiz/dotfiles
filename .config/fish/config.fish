@@ -14,11 +14,12 @@ set -gx DEBUG 'grammy*'
 set -gx STARSHIP_LOG error
 set -gx ATUIN_NOBIND true
 set -gx TERMINFO ~/.terminfo
-set -gx NODE_OPTIONS "--max-old-space-size=2200"
 
 set -U fish_greeting
 
 if status is-interactive
+    fastfetch -c examples/8
+
     starship init fish | source
     fzf --fish | source
     atuin init fish | source
@@ -95,15 +96,6 @@ if status is-interactive
         adb push $argv[1] $argv[2] $argv[3] $argv[4] $argv[5] $argv[6] $SDPATH
     end
 
-    function apt-install
-        set -l package (apt-cache search . | fzf --preview 'apt-cache show {1}' --layout=reverse --height=50% | awk '{print $1}')
-        if test -z "$package"
-            echo "No package selected"
-            return 1
-        end
-        sudo apt install $package
-    end
-
     alias g='git'
     alias ga='git add'
     alias gc='git commit'
@@ -126,17 +118,23 @@ if status is-interactive
     alias nvki='NVIM_APPNAME=nvim-kickstart nvim'
     alias nvch='NVIM_APPNAME=nvim-nvchad nvim'
     alias nv2='NVIM_APPNAME=nvim2 nvim'
+    alias vi='vim'
     alias vim='NVIM_APPNAME=nvim-plain nvim'
+    alias vim-dev='NVIM_APPNAME=nvim-dev nvim'
     alias adbsh='adb shell'
-    alias apt-search="apt-cache search . | fzf --preview 'apt-cache show {1}' --layout=reverse --height=50% | awk '{print $1}'"
+    alias bun="sde64 -snb -- bun"
+    alias opencode="sde64 -snb -- opencode"
 end
 
 set -gx FZF_DEFAULT_OPTS \
-    '--height 40% --layout reverse' \
+    # '--height 40% --layout reverse' \
+    '--tmux center,60%,50%' \
     '--color=fg:#B4BEFE,header:#F38BA8,info:#EBA0AC,pointer:#F5E0DC' \
     '--color=marker:#B4BEFE,fg+:#CDD6F4,prompt:#CBA6F7,hl+:#F38BA8' \
     '--color=selected-bg:#45475A' \
     '--color=border:#6C7086,label:#CDD6F4'
+# opencode
+fish_add_path /home/xdagiz/.opencode/bin
 
 # bun
 set --export BUN_INSTALL "$HOME/.bun"

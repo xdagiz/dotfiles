@@ -4,16 +4,34 @@
   "position": "top",
   "spacing": 0,
   "height": 26,
-  "modules-left": ["sway/workspaces", "sway/window"],
+  // "modules-left": ["sway/workspaces", "sway/mode", "sway/window"],
+  "modules-left": ["niri/workspaces", "sway/workspaces", "sway/mode", "sway/window", "niri/window"],
   "modules-center": ["clock"],
   "modules-right": [
-    "network",
-    "custom/disk_io",
     "disk#root",
-    "cpu",
+    "custom/disk_io",
+    "network",
     "memory",
-    "pulseaudio",
+    "cpu",
+    "pulseaudio"
   ],
+  "niri/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "active": "󱓻",
+      "default": "",
+      "1": "1",
+      "2": "2",
+      "3": "3",
+      "4": "4",
+      "5": "5"
+    }
+  },
+  "niri/window": {
+    "format": "  {title}",
+    "icon": false,
+    "max-length": 36
+  },
   "sway/workspaces": {
     "format": "{icon}",
     "format-icons": {
@@ -23,47 +41,47 @@
       "3": "3",
       "4": "4",
       "5": "5",
-      "focused": "󱓻",
+      "focused": "󱓻"
     },
     "persistent-workspaces": {
       "1": [],
       "2": [],
       "3": [],
-      "4": [],
-    },
+      "4": []
+    }
   },
   "sway/window": {
     "format": "  {}",
-    "max-length": 40,
+    "max-length": 40
   },
   "memory": {
     "format": " {}%",
     "interval": 1,
-    "on-click": "swaymsg '[title=\"btop\"] focus' || swaymsg 'workspace 4; exec alacritty -T btop -e btop'",
+    "on-click": "swaymsg '[title=\"btop\"] focus' || swaymsg 'workspace 4; exec alacritty -T btop -e btop'"
   },
   "cpu": {
     "interval": 1,
     "format": "󰍛 {usage}%",
     "on-click": "swaymsg '[title=\"btop\"] focus' || swaymsg 'workspace 4; exec alacritty -T btop -e btop'",
-    "on-click-right": "alacritty",
+    "on-click-right": "alacritty"
   },
   "disk#root": {
     "interval": 30,
     "path": "/",
     "format": " {percentage_used}%",
-    "tooltip": true,
+    "tooltip": true
   },
   "clock": {
     "format": "{:%I:%M %p}",
     "format-alt": "{:L%d %B W%V %Y}",
-    "tooltip": false,
+    "tooltip": false
   },
   "sway/scratchpad": {
     "format": "{icon} {count}",
     "show-empty": false,
     "format-icons": ["", ""],
     "tooltip": true,
-    "tooltip-format": "{app}: {title}",
+    "tooltip-format": "{app}: {title}"
   },
   "network": {
     "format": "{icon}",
@@ -73,7 +91,7 @@
     "tooltip-format-ethernet": "{ifname} \nIP: {ipaddr}\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-disconnected": "Disconnected",
     "interval": 1,
-    "spacing": 1,
+    "spacing": 1
   },
   "pulseaudio": {
     "format": "{icon} {volume}%",
@@ -83,12 +101,12 @@
     "scroll-step": 2,
     "format-muted": " {volume}%",
     "format-icons": {
-      "default": ["", "", ""],
-    },
+      "default": ["", "", " "]
+    }
   },
   "custom/disk_io": {
     "exec": "~/.config/waybar/scripts/disk_io.sh",
     "interval": 1,
-    "return-type": "json",
-  },
+    "return-type": "json"
+  }
 }
