@@ -83,12 +83,16 @@ layout {
 }
 
 spawn-at-startup "waybar"
-
+spawn-at-startup "swaync"
 spawn-at-startup "/usr/bin/lxqt-policykit-agent"
 spawn-at-startup "alacritty"
 // spawn-sh-at-startup "swaybg -i ~/Pictures/retro2_live-l.gif -m fill"
 spawn-sh-at-startup "swaybg -i ~/Pictures/square-city.jpg -m fill"
 spawn-sh-at-startup "wl-paste --watch cliphist store"
+spawn-at-startup "xwayland-satellite"
+environment {
+    DISPLAY ":0"
+}
 
 hotkey-overlay {
     skip-at-startup
@@ -118,12 +122,25 @@ animations {
 }
 
 window-rule {
+    opacity 0.9
+    exclude app-id="Alacritty"
+    exclude title=r#"YouTube - Brave"#
+    exclude title="Picture in picture"
+    exclude app-id="mpv"
+}
+
+window-rule {
   draw-border-with-background false
 }
 
 window-rule {
     match app-id=r#"zen$"# title="^Picture-in-Picture$"
     open-floating true
+}
+
+window-rule {
+  match title="Picture in picture"
+  open-floating true
 }
 
 window-rule {

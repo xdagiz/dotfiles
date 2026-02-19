@@ -49,7 +49,7 @@ exec_always dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CUR
 
 exec /usr/bin/lxqt-policykit-agent
 exec $term
-exec mako
+exec swaync
 
 xwayland disable
 
