@@ -14,8 +14,13 @@
 !.config/fish
 !.config/starship.toml
 !.config/gitui
+!.config/wireplumber
+!.config/swaync
+!.config/bat
+!scripts/
 !.zshrc
 !.p10k.zsh
 !.gitignore
 !.README.md
+!.gitignore
 !screenshots/

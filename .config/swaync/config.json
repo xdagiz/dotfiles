@@ -19,10 +19,10 @@
   "timeout": 10,
   "timeout-low": 5,
   "timeout-critical": 0,
-  "fit-to-screen": true,
+  "fit-to-screen": false,
   "relative-timestamps": true,
-  "control-center-width": 500,
-  "control-center-height": 600,
+  "control-center-width": 400,
+  "control-center-height": 700,
   "notification-window-width": 500,
   "keyboard-shortcuts": true,
   "notification-grouping": true,
@@ -52,12 +52,7 @@
       "app-name": "example.app.id"
     }
   },
-  "widgets": [
-    "inhibitors",
-    "title",
-    "dnd",
-    "notifications"
-  ],
+  "widgets": ["inhibitors", "title", "dnd", "notifications"],
   "widget-config": {
     "notifications": {
       "vexpand": true
