@@ -5,22 +5,16 @@ return {
     opts = {
       server = {
         default_settings = {
-          -- rust-analyzer language server configuration
           ["rust-analyzer"] = {
             cargo = {
-              allFeatures = true,
-              loadOutDirsFromCheck = true,
-              buildScripts = {
-                enable = true,
-              },
+              allFeatures = false,
+              loadOutDirsFromCheck = false,
+              buildScripts = { enable = false },
+              runBuildScripts = false,
             },
-            checkOnSave = true,
-            diagnostics = {
-              enable = true,
-            },
-            procMacro = {
-              enable = true,
-            },
+            checkOnSave = false,
+            diagnostics = { enable = false },
+            procMacro = { enable = false },
             files = {
               exclude = {
                 ".direnv",
@@ -34,9 +28,10 @@ return {
                 "venv",
                 ".venv",
               },
-              -- Avoid Roots Scanned hanging, see https://github.com/rust-lang/rust-analyzer/issues/12613#issuecomment-2096386344
               watcher = "client",
             },
+            -- Disable dependent crate analysis
+            linkedProjects = {},
           },
         },
       },
