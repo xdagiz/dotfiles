@@ -5,9 +5,7 @@ $os\
 $username\
 $hostname\
 $directory\
-$git_branch\
-$git_state\
-$git_status\
+$custom\
 $cmd_duration\
 $c\
 $rust\
@@ -16,6 +14,11 @@ $nodejs\
 $python\
 $line_break\
 $character"""
+
+[custom.jj]
+when = "jj-starship detect"
+shell = ["jj-starship"]
+format = "$output "
 
 [directory]
 style = "blue"

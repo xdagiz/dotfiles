@@ -1,11 +1,14 @@
+[include]
+  path = ~/.config/delta/themes/catppuccin/catppuccin.gitconfig
 [core]
 	editor = nvim
 	autocrlf = input
+  pager = delta
 [init]
 	defaultBranch = main
 [push]
   autoSetupRemote = true
-  defaut = current
+  default = current
 [color]
 	ui = auto
 [alias]
@@ -16,5 +19,11 @@
 	cm = commit -m
 	lg = log --oneline --graph --all --decorate
 [user]
-	email = xdagizjr2112@gmail.com
+	email = xdagiz@protonmail.com
 	name = Dagmawi Ali
+[delta]
+    features = catppuccin-mocha
+    syntax-theme = Catppuccin Mocha
+    side-by-side = true
+    navigate = true
+    line-numbers = true

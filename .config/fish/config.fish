@@ -18,7 +18,7 @@ set -gx TERMINFO ~/.terminfo
 set -U fish_greeting
 
 if status is-interactive
-    fastfetch -c examples/8
+    # fastfetch -c examples/8
 
     starship init fish | source
     fzf --fish | source
@@ -114,13 +114,9 @@ if status is-interactive
     alias ls='eza --icons'
     alias tree='eza --tree'
     alias rmrf='rm -rf'
-    alias v='NVIM_APPNAME=nvim-lazyvim nvim'
-    alias nvki='NVIM_APPNAME=nvim-kickstart nvim'
-    alias nvch='NVIM_APPNAME=nvim-nvchad nvim'
-    alias nv2='NVIM_APPNAME=nvim2 nvim'
-    alias vi='vim'
-    alias vim='NVIM_APPNAME=nvim-plain nvim'
-    alias vim-dev='NVIM_APPNAME=nvim-dev nvim'
+    alias v='bob use v0.11.6 -n && NVIM_APPNAME=nvim-lazyvim nvim'
+    alias vi='/usr/bin/vim'
+    alias vim='bob use nightly -n && NVIM_APPNAME=nvim-dev nvim'
     alias adbsh='adb shell'
     alias bun="sde64 -snb -- bun"
     alias opencode="sde64 -snb -- opencode"

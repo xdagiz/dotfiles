@@ -17,6 +17,10 @@
 !.config/wireplumber
 !.config/swaync
 !.config/bat
+!.config/jj
+!.config/Code/
+!.config/rmpc/
+!.config/mpd/
 !scripts/
 !.zshrc
 !.p10k.zsh

@@ -1,7 +1,7 @@
 input {
     keyboard {
         xkb {
-            // layout "us,ru"
+            layout "us"
             // options "grp:win_space_toggle,compose:ralt,ctrl:nocaps"
 
             // If this section is empty, niri will fetch xkb settings
@@ -30,7 +30,7 @@ input {
 
 output "VGA-1" {
     transform "normal"
-    mode "1280x1024@75.025"
+    mode "1280x1024@60"
     hot-corners {
         off
     }
@@ -65,7 +65,7 @@ layout {
 
         width 1
 
-        active-color "#89dceb"
+        active-color "#F5C2E7"
 
         inactive-color "#505050"
 
@@ -75,10 +75,10 @@ layout {
     }
 
     struts {
-        left 8
-        right 8
+        // left 8
+        // right 8
         // top 8
-        bottom 8
+        // bottom 8
     }
 }
 
@@ -122,8 +122,8 @@ animations {
 }
 
 window-rule {
-    opacity 0.9
-    exclude app-id="Alacritty"
+    opacity 0.95
+    // exclude app-id="Alacritty"
     exclude title=r#"YouTube - Brave"#
     exclude title="Picture in picture"
     exclude app-id="mpv"
@@ -200,6 +200,8 @@ binds {
     XF86AudioStop        allow-when-locked=true { spawn-sh "playerctl stop"; }
     XF86AudioPrev        allow-when-locked=true { spawn-sh "playerctl previous"; }
     XF86AudioNext        allow-when-locked=true { spawn-sh "playerctl next"; }
+    F7        allow-when-locked=true { spawn-sh "playerctl previous"; }
+    F8        allow-when-locked=true { spawn-sh "playerctl next"; }
 
     Mod+O repeat=false { toggle-overview; }
 

@@ -7,25 +7,23 @@
   background: transparent;
   color: @foreground;
 
-  border: none;
-  border-radius: 0;
-  min-height: 32px;
-  font-family: "GeistMono Nerd Font";
-  font-size: 14px;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 12px;
 }
 
-window#waybar > box {
-  /* background-color: @background; */
+window#waybar>box {
+  background-color: rgba(17, 17, 27, 0.5);
+  padding: 8px 0;
   /* border-radius: 8px; */
   /* margin: 0 16px; */
 }
 
-.modules-left {
-  margin-left: 16px;
+#workspaces * {
+  all: unset;
 }
 
-.modules-left * {
-  color: @background;
+.modules-left {
+  margin-left: 16px;
 }
 
 .modules-right {
@@ -36,19 +34,21 @@ window#waybar > box {
   opacity: 0.5;
 }
 
+#workspaces button.active {
+  padding-right: 9px;
+}
+
+#workspaces button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
 #workspaces button {
-  padding: 0 4px;
+  padding: 0 8px;
 }
 
-#cpu,
-#pulseaudio,
-#keyboard-state,
-#network {
-  min-width: 12px;
-}
-
-#tray {
-  margin-right: 16px;
+#workspaces {
+  margin-right: 10px;
 }
 
 #cpu,
@@ -56,18 +56,21 @@ window#waybar > box {
 #network,
 #disk,
 #memory,
+#clock,
+#pulseaudio,
+#notifications,
 #custom-disk_io {
-  margin-right: 16px;
+  padding: 0 8px;
 }
 
 tooltip {
-  background-color: @background;
   border-radius: 8px;
+  background-color: @background;
 }
 
 #clock {
   /* margin-left: 12px; */
-  color: #f5c2e7;
+  /* color: #f5c2e7; */
 }
 
 .hidden {
