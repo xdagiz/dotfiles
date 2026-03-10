@@ -10,5 +10,7 @@ vim.keymap.del({ "n", "x" }, "p")
 vim.keymap.del({ "n", "x" }, "P")
 
 map("x", "<leader>P", '"_dP', { noremap = true, desc = "Safe paste (black-hole)" })
+map("x", "<C-p>", '"_dP', { noremap = true, desc = "Safe paste (black-hole)" })
+map("n", "<S-j>", "gJ", { noremap = true })
 --map({ "n", "i", "v" }, "<C-d>", "<C-d>zz")
 --map({ "n", "i", "v" }, "<C-u>", "<C-u>zz")

@@ -188,6 +188,7 @@ binds {
     Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock"; }
     Mod+P hotkey-overlay-title="Clipboard history: cliphist" { spawn-sh "cliphist list | rofi -dmenu -p '' | cliphist decode | wl-copy"; }
     Mod+E hotkey-overlay-title="File Manager" { spawn-sh "nautilus"; }
+    Mod+B { spawn-sh "~/.config/waybar/scripts/toggle_waybar.sh"; }
 
     Super+Alt+S allow-when-locked=true hotkey-overlay-title=null { spawn-sh "pkill orca || exec orca"; }
 

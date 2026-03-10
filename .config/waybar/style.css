@@ -58,7 +58,8 @@ window#waybar>box {
 #memory,
 #clock,
 #pulseaudio,
-#notifications,
+#custom-notification,
+#custom-power,
 #custom-disk_io {
   padding: 0 8px;
 }
@@ -71,6 +72,11 @@ tooltip {
 #clock {
   /* margin-left: 12px; */
   /* color: #f5c2e7; */
+}
+
+#custom-power {
+  color: #f38ba8;
+  margin-right: 4px;
 }
 
 .hidden {

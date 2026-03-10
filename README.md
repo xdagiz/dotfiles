@@ -1,13 +1,13 @@
 # My Dotfiles
 
-- **Terminal**: Alacritty configuration
+- **Terminal**: Alacritty
 - **Editor**: Neovim
 - **Shell**: fish + starship
 - **WM**: Niri
 - **Bar**: Waybar
 - **Launcher**: Rofi
 - **Colorscheme**: Catppuccin Mocha
-- **Other**: tmux, btop, mako, wofi
+- **Other**: tmux, jj, btop, mako, wofi
 
 ## Screenshots
 
