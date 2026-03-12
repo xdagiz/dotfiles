@@ -16,6 +16,7 @@ set -gx ATUIN_NOBIND true
 set -gx TERMINFO ~/.terminfo
 
 set -U fish_greeting
+set -U nvm_default_version 22
 
 if status is-interactive
     # fastfetch -c examples/8
@@ -110,16 +111,19 @@ if status is-interactive
     alias ....='cd ../../..'
     alias clr=clear
     alias fishrc='source ~/.config/fish/config.fish'
+    alias paru="paru --bottomup"
     # alias bat=batcat
     alias ls='eza --icons'
     alias tree='eza --tree'
     alias rmrf='rm -rf'
     alias v='bob use v0.11.6 -n && NVIM_APPNAME=nvim-lazyvim nvim'
     alias vi='/usr/bin/vim'
-    alias vim='bob use nightly -n && NVIM_APPNAME=nvim-dev nvim'
+    alias vim='bob use nightly -n && nvim'
     alias adbsh='adb shell'
-    alias bun="sde64 -snb -- bun"
-    alias opencode="sde64 -snb -- opencode"
+    alias bun="qemu-x86_64 -cpu max $(which bun)"
+    alias opencode="qemu-x86_64 -cpu max $(which opencode)"
+    alias oc="qemu-x86_64 -cpu max $(which opencode)"
+    alias kilo="qemu-x86_64 -cpu max $(which kilo)"
 end
 
 set -gx FZF_DEFAULT_OPTS \

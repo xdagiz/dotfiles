@@ -24,7 +24,7 @@
 ## Installation
 
 ```bash
-git clone https://github.com/xdagiz/dotfiles ~/dotfiles
+git clone https://github.com/xdagiz/dots ~/dotfiles
 cd ~/dotfiles
 
 # If using stow
