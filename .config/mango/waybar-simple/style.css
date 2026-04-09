@@ -11,8 +11,9 @@
 
 
 window#waybar>box {
-  background-color: rgba(17, 17, 27, 0.5);
-  padding: 2px 0;
+  background-color: #1e1e2e;
+  /* background-color: rgba(17, 17, 27, 0.5); */
+  padding: 4px 0;
 }
 
 tooltip {
@@ -30,11 +31,27 @@ tooltip {
 
 #workspaces button {
   all: unset;
-  padding: 0 8px;
+  padding: 0 6px;
 }
 
-#workspaces button.active {
-  color: #f5c2e7;
+#workspaces button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+#workspaces button.hidden {
+  opacity: 0.5;
+}
+
+#workspaces button.active * {
+  color: #A6E3A1;
+}
+
+#workspaces button:nth-child(n+6) {
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
 }
 
 #tray,

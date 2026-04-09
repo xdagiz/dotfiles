@@ -4,17 +4,9 @@ set +e
 
 # obs
 dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=wlroots >/dev/null 2>&1
-
-# notify
-swaync -c ~/.config/mango/swaync/config.jsonc -s ~/.config/mango/swaync/style.css >/dev/null 2>&1 &
-
-# night light
+swaync >/dev/null 2>&1 &
 wlsunset -T 3501 -t 3500 >/dev/null 2>&1 &
-
-# wallpaper
-swaybg -i ~/Pictures/square-city.jpg >/dev/null 2>&1 &
-
-# top bar
+swaybg -i ~/Pictures/square-city.jpg -m fill >/dev/null 2>&1 &
 waybar -c ~/.config/mango/waybar-simple/config.jsonc -s ~/.config/mango/waybar-simple/style.css >/dev/null 2>&1 &
 
 # xwayland dpi scale
