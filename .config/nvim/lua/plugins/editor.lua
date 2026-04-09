@@ -1,36 +1,41 @@
 vim.pack.add({
 	{ src = "https://github.com/stevearc/oil.nvim" },
-	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "master" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main" },
+	{ src = "https://github.com/nvim-treesitter/nvim-treesitter-textobjects" },
 	{ src = "https://github.com/nvim-telescope/telescope.nvim" },
+	{ src = "https://github.com/nvim-telescope/telescope-ui-select.nvim" },
 	{ src = "https://github.com/nvim-lua/plenary.nvim" },
 	{ src = "https://github.com/L3MON4D3/LuaSnip" },
 	{ src = "https://github.com/saghen/blink.cmp" },
 	{ src = "https://github.com/stevearc/conform.nvim" },
 	{ src = "https://github.com/nvim-mini/mini.ai" },
 	{ src = "https://github.com/rafamadriz/friendly-snippets" },
+	{
+		src = "https://github.com/nvim-neo-tree/neo-tree.nvim",
+		version = vim.version.range("3"),
+	},
+	{ src = "https://github.com/windwp/nvim-ts-autotag" },
 })
 
 require("nvim-treesitter").setup()
 
-require("nvim-treesitter.configs").setup({
-	modules = {},
-	indent = { enabled = true },
-	folds = { enabled = true },
-	sync_install = false,
-	auto_install = true,
-	ignore_install = {},
-	highlight = {
-		enable = true,
-		additional_vim_regex_highlighting = false,
-	},
-	ensure_installed = {},
+vim.api.nvim_create_autocmd("FileType", {
+	callback = function(ev)
+		local lang = vim.treesitter.language.get_lang(ev.match)
+		if not lang then
+			return
+		end
+		if vim.treesitter.language.add(lang) then
+			vim.treesitter.start(ev.buf, lang)
+		end
+	end,
 })
 
 require("luasnip").filetype_extend("javascriptreact", { "html" })
 require("luasnip").filetype_extend("typescriptreact", { "html" })
 require("luasnip.loaders.from_vscode").lazy_load()
-require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
-require("luasnip").setup({ enable_autosnippets = true })
+require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets" })
+require("luasnip").setup({ enable_autosnippets = true, store_selection_keys = "<Tab>" })
 
 local ai = require("mini.ai")
 require("mini.ai").setup({
@@ -83,12 +88,10 @@ telescope.setup({
 		selection_caret = " ",
 		preview = { treesitter = true },
 		color_devicons = true,
-		sorting_strategy = "ascending",
 		path_displays = { "smart" },
 		layout_config = {
-			-- height = 30,
-			-- width = 100,
-			prompt_position = "top",
+			height = 30,
+			width = 140,
 			preview_cutoff = 40,
 		},
 		mappings = {
@@ -104,15 +107,19 @@ telescope.setup({
 				["q"] = actions.close,
 			},
 		},
-		pickers = {
-			find_files = {
-				find_command = { "rg", "--files", "--color", "never", "-g", "!.git" },
-				hidden = true,
-				theme = "dropdown",
-			},
+	},
+	pickers = {
+		find_files = {
+			find_command = { "rg", "--files", "--color", "never", "-g", "!.git" },
+			-- hidden = true,
+			-- theme = "", -- dropdown, ivy, cursor
 		},
 	},
+	extensions = {
+		["ui-select"] = require("telescope.themes").get_dropdown({}),
+	},
 })
+pcall(telescope.load_extension, "ui-select")
 
 local map = vim.keymap.set
 map({ "n" }, "<leader>ff", builtin.find_files, { desc = "Telescope live grep" })
@@ -223,6 +230,49 @@ require("blink.cmp").setup({
 	},
 })
 
+local function has_root_file(bufnr, names)
+	local path = vim.api.nvim_buf_get_name(bufnr)
+	local start = path ~= "" and vim.fs.dirname(path) or vim.uv.cwd()
+	return vim.fs.find(names, { path = start, upward = true })[1] ~= nil
+end
+
+local function js_formatter_for(bufnr)
+	if has_root_file(bufnr, { "biome.json", "biome.jsonc", ".biome.json", ".biome.jsonc" }) then
+		return { "biome" }
+	end
+
+	if has_root_file(bufnr, { ".oxfmtrc.json", ".oxfmtrc.jsonc", "oxfmtrc.json", "oxfmtrc.jsonc" }) then
+		return { "oxfmt" }
+	end
+
+	if
+		has_root_file(bufnr, {
+			".prettierrc",
+			".prettierrc.json",
+			".prettierrc.yml",
+			".prettierrc.yaml",
+			".prettierrc.json5",
+			".prettierrc.js",
+			".prettierrc.cjs",
+			".prettierrc.mjs",
+			".prettierrc.ts",
+			".prettierrc.cts",
+			".prettierrc.mts",
+			".prettierrc.toml",
+			"prettier.config.js",
+			"prettier.config.cjs",
+			"prettier.config.mjs",
+			"prettier.config.ts",
+			"prettier.config.cts",
+			"prettier.config.mts",
+		})
+	then
+		return { "prettier" }
+	end
+
+	return { "oxfmt" }
+end
+
 require("conform").setup({
 	format_on_save = {
 		timeout_ms = 500,
@@ -231,27 +281,86 @@ require("conform").setup({
 	default_format_opts = { stop_after_first = true, timeout_ms = 1000 },
 	formatters_by_ft = {
 		lua = { "stylua" },
-		javascript = { "oxfmt" },
-		typescript = { "oxfmt" },
-		javascriptreact = { "oxfmt" },
-		typescriptreact = { "oxfmt" },
+		javascript = js_formatter_for,
+		typescript = js_formatter_for,
+		javascriptreact = js_formatter_for,
+		typescriptreact = js_formatter_for,
 		-- markdown = { "prettier" },
 		go = { "goimports", "gofumpt" },
 	},
 })
 
-require("oil").setup({
-	lsp_file_methods = {
-		enabled = true,
-		timeout_ms = 1000,
-		autosave_changes = true,
+require("nvim-ts-autotag").setup({
+	opts = {
+		enable_close = true,
+		enable_rename = true,
+		enable_close_on_slash = false,
 	},
-	columns = {
-		"icon",
+})
+
+-- require("oil").setup({
+-- 	lsp_file_methods = {
+-- 		enabled = true,
+-- 		timeout_ms = 1000,
+-- 		autosave_changes = true,
+-- 	},
+-- 	columns = {
+-- 		"icon",
+-- 	},
+-- 	float = {
+-- 		max_width = 0.5,
+-- 		max_height = 0.6,
+-- 		border = "rounded",
+-- 	},
+-- 	-- Buffer-local options to use for oil buffers
+-- 	buf_options = {
+-- 		buflisted = true,
+-- 		bufhidden = "hide",
+-- 	},
+-- 	delete_to_trash = false,
+-- 	skip_confirm_for_simple_edits = false,
+-- 	prompt_save_on_select_new_entry = true,
+-- 	-- Constrain the cursor to the editable parts of the oil buffer
+-- 	-- Set to `false` to disable, or "name" to keep it on the file names
+-- 	constrain_cursor = "editable",
+-- 	-- Set to true to watch the filesystem for changes and reload oil
+-- 	watch_for_changes = false,
+-- 	view_options = {
+-- 		show_hidden = true,
+-- 	},
+-- })
+
+require("neo-tree").setup({
+	default_component_configs = {
+		git_status = {
+			symbols = {
+				added = "",
+				modified = "",
+				deleted = "",
+				renamed = "",
+				ignored = "",
+				untracked = "",
+				unstaged = "",
+				staged = "",
+				conflict = "",
+			},
+		},
 	},
-	float = {
-		max_width = 0.4,
-		max_height = 0.6,
-		border = "rounded",
+	filesystem = {
+		follow_current_file = {
+			enabled = true,
+			leave_dirs_open = false,
+		},
+	},
+	window = {
+		width = 30,
+		mappings = {
+			["l"] = {
+				"open",
+			},
+			["h"] = {
+				"close_node",
+			},
+		},
 	},
 })

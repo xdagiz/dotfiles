@@ -1,16 +1,17 @@
 local utils = require("utils")
 
 vim.pack.add({
-	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
 	{ src = "https://github.com/catppuccin/nvim", name = "catppuccin" },
 	{ src = "https://github.com/lewis6991/gitsigns.nvim" },
 	{ src = "https://github.com/nvim-lualine/lualine.nvim" },
-	{ src = "https://github.com/folke/noice.nvim" },
-	{ src = "https://github.com/rachartier/tiny-inline-diagnostic.nvim" },
+	{ src = "https://github.com/nvim-mini/mini.icons", version = "stable" },
 	{ src = "https://github.com/akinsho/nvim-bufferline.lua" },
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons" },
-	{ src = "https://github.com/MunifTanjim/nui.nvim" },
 	{ src = "https://github.com/lukas-reineke/indent-blankline.nvim" },
+	{ src = "https://github.com/rcarriga/nvim-notify" },
+	{ src = "https://github.com/MunifTanjim/nui.nvim" },
+	{ src = "https://github.com/folke/noice.nvim" },
+	{ src = "https://github.com/smjonas/inc-rename.nvim" },
 })
 
 require("ibl").setup({
@@ -57,6 +58,14 @@ require("catppuccin").setup({
 })
 vim.cmd("colorscheme catppuccin-mocha")
 
+require("notify").setup({
+	timeout = 500,
+	stages = "fade",
+	on_open = function(win)
+		vim.api.nvim_win_set_config(win, { focusable = false })
+	end,
+})
+
 require("noice").setup({
 	cmdline = {
 		view = "cmdline",
@@ -86,8 +95,28 @@ require("noice").setup({
 		command_palette = true,
 		long_message_to_split = true,
 		lsp_doc_border = true,
+		inc_rename = true,
 	},
 })
+
+package.preload["nvim-web-devicons"] = function()
+	require("mini.icons").mock_nvim_web_devicons()
+	return package.loaded["nvim-web-devicons"]
+end
+require("mini.icons").setup({
+	file = {
+		[".keep"] = { glyph = "󰊢", hl = "MiniIconsGrey" },
+		["devcontainer.json"] = { glyph = "", hl = "MiniIconsAzure" },
+	},
+	filetype = {
+		dotenv = { glyph = "", hl = "MiniIconsYellow" },
+	},
+})
+
+require("inc_rename").setup({})
+vim.keymap.set("n", "<leader>rn", function()
+	return ":IncRename " .. vim.fn.expand("<cword>")
+end, { expr = true })
 
 vim.keymap.set("n", "<leader>sn", "<cmd>Noice<cr>")
 vim.keymap.set("n", "<leader>snl", "<cmd>NoiceLast<cr>")
@@ -170,8 +199,13 @@ require("lualine").setup({
 		lualine_b = { "branch" },
 
 		lualine_c = {
-			utils.root_dir(),
+			{ "filename" },
 			{ "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
+		},
+		lualine_x = {
+			{
+				"lsp_status",
+			},
 			{
 				"diagnostics",
 				symbols = {
@@ -181,20 +215,9 @@ require("lualine").setup({
 					hint = " ",
 				},
 			},
-		},
-		lualine_x = {
 			{
 				"diff",
-				-- source = function()
-				-- 		local gitsigns = vim.b.gitsigns_status_dict
-				-- 		if gitsigns then
-				-- return {
-				-- 	added = " ",
-				-- 	modified = " ",
-				-- 	removed = " ",
-				-- }
-				-- 		end
-				-- end,
+				symbols = { added = " ", modified = " ", removed = " " },
 			},
 		},
 		lualine_y = {
@@ -209,8 +232,6 @@ require("lualine").setup({
 	},
 })
 
-require("tiny-inline-diagnostic").setup()
-
 require("bufferline").setup({
 	options = {
 		mode = "buffers",
@@ -223,6 +244,7 @@ require("bufferline").setup({
 		right_mouse_command = function(n)
 			utils.bufdelete(n)
 		end,
+		always_show_bufferline = false,
 	},
 	highlights = require("catppuccin.special.bufferline").get_theme(),
 })

@@ -37,7 +37,7 @@ map("n", "<leader>bd", function()
 	utils.bufdelete()
 end)
 map("n", "<leader>bo", function()
-	utils.other()
+	utils.bufdelete_other()
 end)
 
 map("x", "<", "<gv")
@@ -58,10 +58,13 @@ local diagnostic_goto = function(next, severity)
 		vim.diagnostic.jump({
 			count = (next and 1 or -1) * vim.v.count1,
 			severity = severity and vim.diagnostic.severity[severity] or nil,
-			float = true,
+			on_jump = function()
+				vim.diagnostic.open_float()
+			end,
 		})
 	end
 end
+
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 map("n", "]d", diagnostic_goto(true), { desc = "Next Diagnostic" })
 map("n", "[d", diagnostic_goto(false), { desc = "Prev Diagnostic" })
@@ -69,6 +72,8 @@ map("n", "]e", diagnostic_goto(true, "ERROR"), { desc = "Next Error" })
 map("n", "[e", diagnostic_goto(false, "ERROR"), { desc = "Prev Error" })
 map("n", "]w", diagnostic_goto(true, "WARN"), { desc = "Next Warning" })
 map("n", "[w", diagnostic_goto(false, "WARN"), { desc = "Prev Warning" })
+map("n", "]i", diagnostic_goto(true, "INFO"), { desc = "Next Info" })
+map("n", "[i", diagnostic_goto(false, "INFO"), { desc = "Prev Info" })
 
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics" })
 
@@ -81,10 +86,11 @@ map("x", "<leader>P", '"_dP', { noremap = true, desc = "Safe paste (black-hole)"
 map({ "n", "t" }, "<leader>t", "<Cmd>tabnew<CR>")
 map({ "n", "x" }, "<S-h>", "<cmd>tabprev<CR>")
 map({ "n", "x" }, "<S-l>", "<cmd>tabnext<CR>")
-map({ "n", "x" }, "<leader>bd", "<cmd>tabclose<CR>")
-for i = 1, 8 do
-	map({ "n", "t" }, "<leader>" .. i, "<Cmd>tabnext " .. i .. "<CR>")
-end
+map("n", "<leader>w", "<cmd>write<cr>")
+-- map({ "n", "x" }, "<leader>bd", "<cmd>tabclose<CR>")
+-- for i = 1, 8 do
+-- 	map({ "n", "t" }, "<leader>" .. i, "<Cmd>tabnext " .. i .. "<CR>")
+-- end
 
 map({ "n", "v", "x" }, "<leader>no", ":norm ", { desc = "ENTER NORM COMMAND." })
 map({ "n", "v", "x" }, "<leader>nh", "<Cmd>nohlsearch<CR>")
@@ -95,8 +101,8 @@ map({ "n" }, "<M-n>", "<cmd>resize +2<CR>")
 map({ "n" }, "<M-e>", "<cmd>resize -2<CR>")
 map({ "n" }, "<M-i>", "<cmd>vertical resize +5<CR>")
 map({ "n" }, "<M-m>", "<cmd>vertical resize -5<CR>")
-map({ "n" }, "<leader>e", "<cmd>Oil<CR>")
-map({ "n" }, "<leader>o", "<cmd>Oil --float<CR>")
+map({ "n" }, "<leader>e", "<cmd>Neotree position=left toggle<CR>")
+map({ "n" }, "<leader>o", "<cmd>Neotree position=float toggle<CR>")
 map({ "n" }, "<leader>qq", "<Cmd>:quit<CR>", { desc = "Quit the current buffer." })
 map({ "n" }, "<leader>wq", "<Cmd>:wqa<CR>", { desc = "Quit all buffers and write." })
 
@@ -107,3 +113,6 @@ end, { desc = "Toggle wrap" })
 map("x", "<leader>P", '"_dP', { noremap = true, desc = "Safe paste (black-hole)" })
 map("x", "<C-p>", '"_dP', { noremap = true, desc = "Safe paste (black-hole)" })
 map("n", "<S-j>", "gJ", { noremap = true })
+
+map({ "n", "i", "v" }, "<C-a>", "ggVG", { noremap = true })
+-- map("i", "<C-Space>", "<C-X><C-O>")

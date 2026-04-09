@@ -12,7 +12,7 @@ local M = {}
 --- - or the buffer `buf` if it is a number
 --- - or every buffer for which `buf` returns true if it is a function
 ---@param opts? number|bufdelete.Opts
-function M.delete(opts)
+function M.bufdelete(opts)
 	opts = opts or {}
 	opts = type(opts) == "number" and { buf = opts } or opts
 	opts = type(opts) == "function" and { filter = opts } or opts
@@ -21,7 +21,7 @@ function M.delete(opts)
 	if type(opts.filter) == "function" then
 		for _, b in ipairs(vim.tbl_filter(opts.filter, vim.api.nvim_list_bufs())) do
 			if vim.bo[b].buflisted then
-				M.delete(vim.tbl_extend("force", {}, opts, { buf = b, filter = false }))
+				M.bufdelete(vim.tbl_extend("force", {}, opts, { buf = b, filter = false }))
 			end
 		end
 		return
@@ -81,8 +81,8 @@ end
 
 --- Delete all buffers
 ---@param opts? bufdelete.Opts
-function M.all(opts)
-	return M.delete(vim.tbl_extend("force", {}, opts or {}, {
+function M.bufdelete_all(opts)
+	return M.bufdelete(vim.tbl_extend("force", {}, opts or {}, {
 		filter = function()
 			return true
 		end,
@@ -91,8 +91,8 @@ end
 
 --- Delete all buffers except the current one
 ---@param opts? bufdelete.Opts
-function M.other(opts)
-	return M.delete(vim.tbl_extend("force", {}, opts or {}, {
+function M.bufdelete_other(opts)
+	return M.bufdelete(vim.tbl_extend("force", {}, opts or {}, {
 		filter = function(b)
 			return b ~= vim.api.nvim_get_current_buf()
 		end,

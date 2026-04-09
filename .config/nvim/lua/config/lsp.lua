@@ -1,7 +1,3 @@
-vim.pack.add({
-	{ src = "https://github.com/mrcjkb/rustaceanvim" },
-})
-
 vim.diagnostic.config({
 	signs = {
 		text = {
@@ -18,24 +14,34 @@ vim.diagnostic.config({
 		},
 		numhl = {},
 	},
-	virtual_text = false,
-	jump = { float = true },
+	virtual_text = {
+		spacing = 2,
+		source = "if_many",
+		prefix = "●",
+	},
 	underline = true,
 	severity_sort = true,
 })
 
 vim.api.nvim_create_autocmd("LspAttach", {
 	callback = function(args)
-		local buf = args.buf
+		local bufnr = args.buf
+		local map = function(mode, lhs, rhs, desc)
+			vim.keymap.set(mode, lhs, rhs, { buffer = bufnr, desc = desc })
+		end
 
-		vim.lsp.inlay_hint.enable(true, { bufnr = buf })
-		vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action)
-		vim.keymap.set("n", "gd", vim.lsp.buf.definition)
-		vim.keymap.set("n", "K", vim.lsp.buf.hover)
-		vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename)
-		vim.keymap.set("n", "<leader>wd", vim.diagnostic.open_float)
-		vim.keymap.set("n", "<leader>ss", vim.lsp.buf.workspace_symbol)
-		vim.keymap.set("n", "<leader>cf", vim.lsp.buf.format)
+		vim.lsp.inlay_hint.enable(true)
+		map("n", "K", vim.lsp.buf.hover, "LSP Hover")
+		map("n", "gd", vim.lsp.buf.definition, "Go to definition")
+		map("n", "gD", vim.lsp.buf.declaration, "Go to declaration")
+		map("n", "gi", vim.lsp.buf.implementation, "Go to implementation")
+		map("n", "grr", vim.lsp.buf.references, "References")
+		map("n", "<leader>rn", vim.lsp.buf.rename, "Rename symbol")
+		map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, "Code action")
+		map({ "n", "v" }, "gra", vim.lsp.buf.code_action, "Code action")
+		map("n", "<leader>cf", function()
+			vim.lsp.buf.format({ async = true })
+		end, "Format buffer")
 	end,
 })
 
@@ -112,6 +118,55 @@ vim.lsp.config("gopls", {
 	},
 })
 
+vim.lsp.config("tsgo", {
+	settings = {
+		typescript = {
+			tsserver = {
+				maxTsServerMemory = 1024,
+			},
+			updateImportsOnFileMove = { enabled = "always" },
+			suggest = {
+				completeFunctionCalls = true,
+			},
+			inlayHints = {
+				variableTypes = { enabled = false },
+			},
+		},
+	},
+})
+
+vim.lsp.config("rust_analyzer", {
+	settings = {
+		["rust-analyzer"] = {
+			cargo = {
+				allFeatures = false,
+				loadOutDirsFromCheck = false,
+				buildScripts = { enable = false },
+				runBuildScripts = false,
+			},
+			checkOnSave = false,
+			diagnostics = { enable = false },
+			procMacro = { enable = false },
+			files = {
+				exclude = {
+					".direnv",
+					".git",
+					".jj",
+					".github",
+					".gitlab",
+					"bin",
+					"node_modules",
+					"target",
+					"venv",
+					".venv",
+				},
+				watcher = "client",
+			},
+			linkedProjects = {},
+		},
+	},
+})
+
 vim.lsp.enable({
 	-- "lua_ls",
 	"gopls",
@@ -119,49 +174,7 @@ vim.lsp.enable({
 	"bacon_ls",
 	-- "rust_analyzer",
 	-- "tailwindcss",
-	-- "tsgo",
+	"tsgo",
 	-- "vtsls",
 	-- "zls",
 })
-
-vim.g.rustaceanvim = {
-	server = {
-		on_attach = function(_, bufnr)
-			vim.keymap.set("n", "<leader>cR", function()
-				vim.cmd.RustLsp("codeAction")
-			end, { desc = "Code Action", buffer = bufnr })
-			vim.keymap.set("n", "<leader>dr", function()
-				vim.cmd.RustLsp("debuggables")
-			end, { desc = "Rust Debuggables", buffer = bufnr })
-		end,
-		default_settings = {
-			["rust-analyzer"] = {
-				cargo = {
-					allFeatures = false,
-					loadOutDirsFromCheck = false,
-					buildScripts = { enable = false },
-					runBuildScripts = false,
-				},
-				checkOnSave = false,
-				diagnostics = { enable = false },
-				procMacro = { enable = false },
-				files = {
-					exclude = {
-						".direnv",
-						".git",
-						".jj",
-						".github",
-						".gitlab",
-						"bin",
-						"node_modules",
-						"target",
-						"venv",
-						".venv",
-					},
-					watcher = "client",
-				},
-				linkedProjects = {},
-			},
-		},
-	},
-}
